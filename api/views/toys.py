@@ -17,3 +17,10 @@ def create():
   db.session.add(drum)
   db.session.commit()
   return jsonify(drum.serialize()), 201
+
+@drums.route('/', methods=["GET"])
+def index():
+  drums = Drum.query.all()
+  return jsonify([drum.serialize() for drum in drums]), 201
+
+
