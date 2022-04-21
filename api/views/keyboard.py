@@ -18,4 +18,14 @@ def create():
   db.session.commit()
   return jsonify(keyboard.serialize()), 201
 
+@keyboards.route('/', methods=["GET"])
+def index():
+  keyboards = Keyboard.query.all()
+  return jsonify([keyboard.serialize() for keyboard in keyboards]), 201
+
+@keyboards.route('/<id>', methods=["GET"])
+def show(id):
+  keyboard = Keyboard.query.filter_by(id=id).first()
+  return jsonify(keyboard.serialize()), 200
+
 
