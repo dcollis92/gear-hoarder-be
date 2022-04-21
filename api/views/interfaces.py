@@ -48,3 +48,19 @@ def update(id):
   db.session.commit()
   return jsonify(interface.serialize()), 200
 
+# Delete Interface
+@interfaces.route('/<id>', methods=["DELETE"])
+def delete(id):
+  profile = read_token(request)
+  interface = Interface.query.filter_by(id=id).first()
+
+  if interface.profile_id != profile["id"]:
+    return 'Nah Bubba', 403
+
+  db.session.delete(interface)
+  db.session.commit()
+  return jsonify(message="Success"), 200
+
+@interfaces.errorhandler(Exception)          
+def basic_error(err):
+  return jsonify(err=str(err)), 500
