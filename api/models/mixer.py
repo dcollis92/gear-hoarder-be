@@ -1,8 +1,8 @@
 from datetime import datetime
 from api.models.db import db
 
-class Mic(db.Model):
-    __tablename__ = 'mics'
+class Mixer(db.Model):
+    __tablename__ = 'mixers'
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(100))
     make = db.Column(db.String(100))
@@ -18,8 +18,8 @@ class Mic(db.Model):
     profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'))
     
     def __repr__(self):
-      return f"Mic('{self.id}', '{self.make}', '{self.model}', '{self.type}'"
+      return f"Mixer('{self.id}', '{self.make}', '{self.model}', '{self.type}'"
       
     def serialize(self):
-      mic = {p.name: getattr(self, p.name) for p in self.__table__.columns}
-      return mic
+      mixer = {p.name: getattr(self, p.name) for p in self.__table__.columns}
+      return mixer

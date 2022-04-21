@@ -18,8 +18,8 @@ class Interface(db.Model):
   profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'))
     
   def __repr__(self):
-    return f"Mic('{self.id}', '{self.make}', '{self.model}', '{self.type}'"
+    return f"Interface('{self.id}', '{self.make}', '{self.model}', '{self.type}'"
       
   def serialize(self):
-    mic = {p.name: getattr(self, p.name) for p in self.__table__.columns}
-    return mic
+    interface = {p.name: getattr(self, p.name) for p in self.__table__.columns}
+    return interface
