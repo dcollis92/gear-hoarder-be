@@ -28,7 +28,7 @@ def show(id):
   mic = Mic.query.filter_by(id=id).first()
   return jsonify(mic.serialize()), 200
 
-@mics.route('/<id>', method=["PUT"])
+@mics.route('/<id>', methods=["PUT"])
 def update(id):
   data = request.get_json()
   profile = read_token(request)
@@ -43,7 +43,7 @@ def update(id):
   db.session.commit()
   return jsonify(mic.serialize()), 200
 
-@mics.route('/<id>', method=["DELETE"])
+@mics.route('/<id>', methods=["DELETE"])
 def delete(id):
   profile = read_token(request)
   mic = Mic.query.filter_by(id=id).first()
