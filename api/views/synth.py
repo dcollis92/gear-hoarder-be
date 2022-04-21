@@ -42,3 +42,15 @@ def update(id):
 
   db.session.commit()
   return jsonify(synth.serialize()), 200
+
+@synths.route('/<id>', methods=["DELETE"])
+def delete(id):
+  profile = read_token(request)
+  synth = Synth.query.filter_by(id=id).first()
+
+  if synth.profile_id != profile["id"]:
+    return 'Nah Bubba', 403
+
+  db.session.delete(synth)
+  db.session.commit()
+  return jsonify(message="Success"), 200
