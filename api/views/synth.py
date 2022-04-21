@@ -28,4 +28,29 @@ def show(id):
   synth = Synth.query.filter_by(id=id).first()
   return jsonify(synth.serialize()), 200
 
-# @synths.route('/<id>')
+@synths.route('/<id>', methods=["PUT"])
+def update(id):
+  data = request.get_json()
+  profile = read_token(request)
+  synth = synth.query.filter_by(id=id).first()
+
+  if synth.profile_id != profile["id"]:
+    return 'Nah Bubba', 403
+
+  for key in data:
+    setattr(synth, key, data[synth])
+
+  db.session.commit()
+  return jsonify(synth.serialize()), 200
+
+@synths.route('/<id>', methods=["DELETE"])
+def delete(id):
+  profile = read_token(request)
+  synth = Synth.query.filter_by(id=id).first()
+
+  if synth.profile_id != profile["id"]:
+    return 'Nah Bubba', 403
+
+  db.session.delete(synth)
+  db.session.commit()
+  return jsonify(message="Success"), 200
