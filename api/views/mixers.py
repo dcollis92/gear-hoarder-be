@@ -30,3 +30,19 @@ def index():
 def show(id):
   mixer = Mixer.query.filter_by(id=id).first()
   return jsonify(mixer.serialize()), 200
+
+# Update Mixer
+@mixers.route('/<id>', methods=["PUT"])
+def update(id):
+  data = request.get_json()
+  profile = read_token(request)
+  mixer = Mixer.query.filter_by(id=id).first()
+
+  if mixer.profile_id != profile["id"]:
+    return 'Nah Bubba', 403
+
+  for key in data:
+    setattr(mixer, key, data[mixer])
+
+  db.session.commit()
+  return jsonify(mixer.serialize()), 200
