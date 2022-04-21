@@ -23,12 +23,12 @@ def index():
   drums = Drum.query.all()
   return jsonify([drum.serialize() for drum in drums]), 201
 
-drums.route('/<id>', methods=["GET"])
+@drums.route('/<id>', methods=["GET"])
 def show(id):
   drum = Drum.query.filter_by(id=id).first()
   return jsonify(drum.serialize()), 200
 
-@drums.route('/<id>' methods=["PUT"])
+@drums.route('/<id>', methods=["PUT"])
 @login_required
 def update(id):
   data = request.get_json()
@@ -43,3 +43,17 @@ def update(id):
   
   db.session.commit()
   return jsonify(drum.serialize()), 200
+
+@drums.route('<id>', methods=["DELETE"])
+@login_required
+def delete(id):
+  profile = read_token(request)
+  drum = Drum.query.filter_by(id=id).first()
+
+  if drum.profile_id != profile["id"]:
+    return 'Nah Bubba', 403
+
+  db.session.delete(drum)
+  db.session.commit()
+  return jsonify(message="Success"), 200
+
