@@ -45,7 +45,7 @@ def create_app(config):
   app.register_blueprint(pedals, url_prefix='/api/pedals')
   app.register_blueprint(drums, url_prefix='/api/drums')
   app.register_blueprint(keyboards, url_prefix='/api/keyboards')
-
+  
   return app
 
 app = create_app(Config)
