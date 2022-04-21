@@ -17,3 +17,8 @@ def create():
   db.session.add(mic)
   db.session.commit()
   return jsonify(mic.serialize()), 201
+
+@mics.route('/', methods=["GET"])
+def index():
+  mics = Mic.query.all()
+  return jsonify([mic.serialize() for mic in mics]), 201
