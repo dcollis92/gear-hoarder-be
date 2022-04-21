@@ -28,4 +28,17 @@ def show(id):
   keyboard = Keyboard.query.filter_by(id=id).first()
   return jsonify(keyboard.serialize()), 200
 
+@keyboards.route('/<id>', method=["PUT"])
+def update(id):
+  data = request.get_json()
+  profile = read_token(request)
+  keyboard = Keyboard.query.filter_by(id=id).first()
 
+  if keyboard.profile_id != profile["id"]:
+    return 'Nah Bubba', 403
+
+  for key in data:
+    setattr(keyboard, key, data[keyboard])
+
+  db.session.commit()
+  return jsonify(keyboard.serialize()), 200
