@@ -46,3 +46,20 @@ def update(id):
 
   db.session.commit()
   return jsonify(mixer.serialize()), 200
+
+# Delete Mixer
+@mixers.route('/<id>', methods=["DELETE"])
+def delete(id):
+  profile = read_token(request)
+  mixer = Mixer.query.filter_by(id=id).first()
+
+  if mixer.profile_id != profile["id"]:
+    return 'Nah Bubba', 403
+
+  db.session.delete(mixer)
+  db.session.commit()
+  return jsonify(message="Success"), 200
+
+@mixers.errorhandler(Exception)          
+def basic_error(err):
+  return jsonify(err=str(err)), 500
