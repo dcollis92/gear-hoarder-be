@@ -6,7 +6,7 @@ from api.models.mixer import Mixer
 
 mixers = Blueprint('mixers', 'mixers')
 
-# Create Mic
+# Create Mixer
 @mixers.route('/', methods=["POST"])
 @login_required
 def create():
