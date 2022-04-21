@@ -42,3 +42,15 @@ def update(id):
 
   db.session.commit()
   return jsonify(mic.serialize()), 200
+
+@mics.route('/<id>', method=["DELETE"])
+def delete(id):
+  profile = read_token(request)
+  mic = Mic.query.filter_by(id=id).first()
+
+  if mic.profile_id != profile["id"]:
+    return 'Nah Bubba', 403
+
+  db.session.delete(mic)
+  db.session.commit()
+  return jsonify(message="Success"), 200
