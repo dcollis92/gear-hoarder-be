@@ -13,6 +13,7 @@ from api.models.amp import Amp
 from api.models.pedal import Pedal
 from api.models.association import Association
 from api.models.drum import Drum
+from api.models.keyboard import Keyboard
 
 
 # ============ Import Views ============
@@ -22,6 +23,7 @@ from api.views.guitars import guitars
 from api.views.amps import amps
 from api.views.pedals import pedals
 from api.views.drums import drums
+from api.views.keyboards import keyboards
 
 cors = CORS()
 migrate = Migrate() 
@@ -42,6 +44,7 @@ def create_app(config):
   app.register_blueprint(amps, url_prefix='/api/amps')
   app.register_blueprint(pedals, url_prefix='/api/pedals')
   app.register_blueprint(drums, url_prefix='/api/drums')
+  app.register_blueprint(keyboards, url_prefix='/api/keyboards')
 
   return app
 
