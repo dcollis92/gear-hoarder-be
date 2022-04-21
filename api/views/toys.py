@@ -28,4 +28,18 @@ def show(id):
   drum = Drum.query.filter_by(id=id).first()
   return jsonify(drum.serialize()), 200
 
+@drums.route('/<id>' methods=["PUT"])
+@login_required
+def update(id):
+  data = request.get_json()
+  profile = read_token(request)
+  drum = Drum.query.filter_by(id=id).first()
 
+  if drum.profile_id != profile["id"]:
+    return 'Nah Bubba', 403
+  
+  for key in data:
+    setattr(drum, key, data[key])
+  
+  db.session.commit()
+  return jsonify(drum.serialize()), 200
