@@ -42,3 +42,15 @@ def update(id):
 
   db.session.commit()
   return jsonify(keyboard.serialize()), 200
+
+@keyboards.route('/<id>', method=["DELETE"])
+def delete(id):
+  profile = read_token(request)
+  keyboard = Keyboard.query.filter_by(id=id).first()
+
+  if keyboard.profile_id != profile["id"]:
+    return 'Nah Bubba', 403
+
+  db.session.delete(keyboard)
+  db.session.commit()
+  return jsonify(message="Success"), 200
