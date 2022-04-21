@@ -18,3 +18,10 @@ def create():
   db.session.add(mixer)
   db.session.commit()
   return jsonify(mixer.serialize()), 201
+
+# Index Mixers
+@mixers.route('/', methods=["GET"])
+def index():
+  mixers = Mixer.query.all()
+  return jsonify([mixer.serialize() for mixer in mixers]), 201
+
