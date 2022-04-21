@@ -25,8 +25,26 @@ def index():
   interfaces = Interface.query.all()
   return jsonify([interface.serialize() for interface in interfaces]), 201
 
-
+# Show Interface
 @interfaces.route('/<id>', methods=["GET"])
 def show(id):
   interface = Interface.query.filter_by(id=id).first()
   return jsonify(interface.serialize()), 200
+
+# Update Interface
+@interfaces.route('/<id>', methods=["PUT"])
+@login_required
+def update(id): 
+  data = request.get_json()
+  profile = read_token(request)
+  interface = Interface.query.filter_by(id=id). first
+
+  if interface.profile_id != profile["id"]
+    return 'Nah Bubba', 403
+  
+  for key in data:
+    setattr(interface, key, data[interface])
+
+  db.session.commit()
+  return jsonify(interface.serialize()), 200
+
