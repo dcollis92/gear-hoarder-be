@@ -22,3 +22,8 @@ def create():
 def index():
   mics = Mic.query.all()
   return jsonify([mic.serialize() for mic in mics]), 201
+
+@mics.route('/<id>', methods=["GET"])
+def show(id):
+  mic = Mic.query.filter_by(id=id).first()
+  return jsonify(mic.serialize()), 200
