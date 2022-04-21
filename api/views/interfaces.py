@@ -39,7 +39,7 @@ def update(id):
   profile = read_token(request)
   interface = Interface.query.filter_by(id=id). first
 
-  if interface.profile_id != profile["id"]
+  if interface.profile_id != profile["id"]:
     return 'Nah Bubba', 403
   
   for key in data:
