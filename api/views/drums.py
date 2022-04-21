@@ -6,6 +6,7 @@ from api.models.drum import Drum
 
 drums = Blueprint('drums', 'drums')
 
+# Create Drums
 @drums.route('/', methods=["POST"])
 @login_required
 def create():
@@ -18,6 +19,7 @@ def create():
   db.session.commit()
   return jsonify(drum.serialize()), 201
 
+#Index Drums
 @drums.route('/', methods=["GET"])
 def index():
   drums = Drum.query.all()
