@@ -28,3 +28,4 @@ def show(id):
   synth = Synth.query.filter_by(id=id).first()
   return jsonify(synth.serialize()), 200
 
+# @synths.route('/<id>')
