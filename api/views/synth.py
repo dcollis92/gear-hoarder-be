@@ -23,3 +23,8 @@ def index():
   synths = Synth.query.all()
   return jsonify([synth.serialize() for synth in synths]), 201
 
+@synths.route('/<id>', methods=["GET"])
+def show(id):
+  synth = Synth.query.filter_by(id=id).first()
+  return jsonify(synth.serialize()), 200
+
