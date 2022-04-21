@@ -9,6 +9,8 @@ class Mic(db.Model):
     model = db.Column(db.String(100))
     color = db.Column(db.String(100))
     year = db.Column(db.String(4))
+    electronics = db.Column(db.String(100))
+    polar_pattern = db.Column(db.String(100))
     is_working = db.Column(db.Boolean, default=True, nullable=False)
     on_loan = db.Column(db.Boolean, default=False, nullable=False)
     description = db.Column(db.String(250))
