@@ -10,6 +10,7 @@ class Synth(db.Model):
     model = db.Column(db.String(100))
     finish = db.Column(db.String(100))
     year = db.Column(db.String(4))
+    number_of_keys = db.Column(db.Integer(5))
     description = db.Column(db.String(250))
     condition = db.Column(db.String(100))
     is_working = db.Column(db.Boolean, default=True, nullable=False)
