@@ -16,6 +16,7 @@ from api.models.drum import Drum
 from api.models.keyboard import Keyboard
 from api.models.mic import Mic
 from api.models.synth import Synth
+from api.models.mixer import Mixer
 from api.models.interface import Interface
 
 
@@ -29,7 +30,9 @@ from api.views.drums import drums
 from api.views.keyboards import keyboards
 from api.views.mics import mics
 from api.views.synths import synths
+from api.views.mixers import mixers
 from api.views.interfaces import interfaces
+
 
 cors = CORS()
 migrate = Migrate() 
@@ -53,6 +56,7 @@ def create_app(config):
   app.register_blueprint(keyboards, url_prefix='/api/keyboards')
   app.register_blueprint(mics, url_prefix='/api/mics')
   app.register_blueprint(synths, url_prefix='/api/synths')
+  app.register_blueprint(mixers, url_prefix='/api/mixers')
   app.register_blueprint(interfaces, url_prefix='/api/interfaces')
 
   return app
