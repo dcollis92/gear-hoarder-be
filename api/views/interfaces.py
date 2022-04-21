@@ -18,3 +18,9 @@ def create():
   db.session.add(interface)
   db.session.commit()
   return jsonify(interface.serialize()), 201
+
+# Index Interfaces
+@interfaces.route('/', methods=["GET"])
+def index():
+  interfaces = Interface.query.all()
+  return jsonify([interface.serialize() for interface in interfaces]), 201
