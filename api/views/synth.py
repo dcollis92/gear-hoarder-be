@@ -6,7 +6,7 @@ from api.models.synth import Synth
 
 synths = Blueprint('synths', 'synths')
 
-@synth.route('/', methods=["POST"])
+@synths.route('/', methods=["POST"])
 @login_required
 def create():
   data = request.get_json()
@@ -17,3 +17,9 @@ def create():
   db.session.add(synth)
   db.session.commit()
   return jsonify(synth.serialize()), 201
+
+@synths.route('/', methods=["GET"])
+def index():
+  synths = Synth.query.all()
+  return jsonify([synth.serialize() for synth in synths]), 201
+
