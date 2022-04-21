@@ -24,3 +24,9 @@ def create():
 def index():
   interfaces = Interface.query.all()
   return jsonify([interface.serialize() for interface in interfaces]), 201
+
+
+@interfaces.route('/<id>', methods=["GET"])
+def show(id):
+  interface = Interface.query.filter_by(id=id).first()
+  return jsonify(interface.serialize()), 200
