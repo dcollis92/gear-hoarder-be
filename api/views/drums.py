@@ -19,17 +19,19 @@ def create():
   db.session.commit()
   return jsonify(drum.serialize()), 201
 
-#Index Drums
+# Index Drums
 @drums.route('/', methods=["GET"])
 def index():
   drums = Drum.query.all()
   return jsonify([drum.serialize() for drum in drums]), 201
 
+# Show Drum
 @drums.route('/<id>', methods=["GET"])
 def show(id):
   drum = Drum.query.filter_by(id=id).first()
   return jsonify(drum.serialize()), 200
 
+# Update Drum
 @drums.route('/<id>', methods=["PUT"])
 @login_required
 def update(id):
@@ -46,6 +48,7 @@ def update(id):
   db.session.commit()
   return jsonify(drum.serialize()), 200
 
+# Delete Drum
 @drums.route('<id>', methods=["DELETE"])
 @login_required
 def delete(id):
@@ -59,3 +62,6 @@ def delete(id):
   db.session.commit()
   return jsonify(message="Success"), 200
 
+@drums.errorhandler(Exception)          
+def basic_error(err):
+  return jsonify(err=str(err)), 500
