@@ -25,3 +25,8 @@ def index():
   mixers = Mixer.query.all()
   return jsonify([mixer.serialize() for mixer in mixers]), 201
 
+# Show Mixer
+@mixers.route('/<id>', methods=["GET"])
+def show(id):
+  mixer = Mixer.query.filter_by(id=id).first()
+  return jsonify(mixer.serialize()), 200
