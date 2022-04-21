@@ -14,6 +14,7 @@ from api.models.pedal import Pedal
 from api.models.association import Association
 from api.models.drum import Drum
 from api.models.keyboard import Keyboard
+from api.models.mic import Mic
 
 
 # ============ Import Views ============
@@ -24,6 +25,7 @@ from api.views.amps import amps
 from api.views.pedals import pedals
 from api.views.drums import drums
 from api.views.keyboards import keyboards
+from api.views.mics import mics
 
 cors = CORS()
 migrate = Migrate() 
@@ -45,7 +47,8 @@ def create_app(config):
   app.register_blueprint(pedals, url_prefix='/api/pedals')
   app.register_blueprint(drums, url_prefix='/api/drums')
   app.register_blueprint(keyboards, url_prefix='/api/keyboards')
-  
+  app.register_blueprint(mics, url_prefix='/api/mics')
+
   return app
 
 app = create_app(Config)
