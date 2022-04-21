@@ -27,3 +27,18 @@ def index():
 def show(id):
   mic = Mic.query.filter_by(id=id).first()
   return jsonify(mic.serialize()), 200
+
+@mics.route('/<id>', method=["PUT"])
+def update(id):
+  data = request.get_json()
+  profile = read_token(request)
+  mic = Mic.query.filter_by(id=id).first()
+
+  if mic.profile_id != profile["id"]:
+    return 'Nah Bubba', 403
+
+  for key in data:
+    setattr(mic, key, data[mic])
+
+  db.session.commit()
+  return jsonify(mic.serialize()), 200
