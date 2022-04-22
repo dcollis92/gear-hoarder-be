@@ -17,7 +17,7 @@ class Pedal(db.Model):
     condition = db.Column(db.String(100))
     is_modified = db.Column(db.Boolean, default=False, nullable=False)
     mod_description = db.Column(db.String(250))
-    is_working = db.Column(db.Boolean, default=True, nullable=False)
+    broken = db.Column(db.Boolean, default=False, nullable=False)
     on_loan = db.Column(db.Boolean, default=False, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'))
