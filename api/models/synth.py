@@ -13,7 +13,7 @@ class Synth(db.Model):
     number_of_keys = db.Column(db.Integer)
     description = db.Column(db.String(250))
     condition = db.Column(db.String(100))
-    is_working = db.Column(db.Boolean, default=True, nullable=False)
+    broken = db.Column(db.Boolean, default=False, nullable=False)
     on_loan = db.Column(db.Boolean, default=False, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'))
